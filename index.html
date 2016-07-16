@@ -1,0 +1,37 @@
+<!doctype html>
+<html>
+	<head>	
+	</head>
+	<body>			
+		<div id="google_canvas"></div>	
+		<script src="//maps.googleapis.com/maps/api/js?v=3.exp&key=AIzaSyBgZ90uBOEpR0_py8NHqVSCGEnfqaltijw"></script>	
+	    <script>
+	    (function() {	    
+	    	if(!!navigator.geolocation) {	    	
+	    		var map;	    	
+		    	var mapOptions = {
+		    		zoom: 19,
+		    		mapTypeId: google.maps.MapTypeId.ROADMAP
+		    	};		    	
+		    	map = new google.maps.Map(document.getElementById('google_canvas'), mapOptions);	
+					//get location
+	    		navigator.geolocation.getCurrentPosition(function(position) {	
+					
+		    		var geolocate = new google.maps.LatLng(position.coords.latitude, position.coords.longitude)
+					//set map center to view
+		    		map.setCenter(geolocate);
+	    		});	    		
+	    	} else {
+	    		document.getElementById('google_canvas').innerHTML = 'No Geolocation Support.';
+	    	}	    	
+	    })();
+		//listener to get the latitude and logitude of click on map
+		google.maps.event.addListener(marker, "click", function (event) {
+		  var latitude = event.latLng.lat();
+		  var longitude = event.latLng.lng();
+		  console.log( latitude + ', ' + longitude );
+		//end addListener	    
+        });
+	    </script>	
+	</body>
+</html>
